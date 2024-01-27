@@ -2,14 +2,18 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-color: #6cbae1;
   }
   
+h1 {
+    text-align: center;
+}
+
   .container {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #effabc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   

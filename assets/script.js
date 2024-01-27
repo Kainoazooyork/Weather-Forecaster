@@ -1,4 +1,4 @@
-const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY';
+const apiKey = '44f325ec07535190d0788a66415fe58d';
 const apiUrl = 'https://api.openweathermap.org/data/2.5';
 
 const searchForm = document.getElementById('searchForm');
@@ -16,6 +16,7 @@ async function getWeatherData(city) {
 
     const forecastResponse = await fetch(`${apiUrl}/forecast?q=${city}&appid=${apiKey}&units=imperial`);
     const forecastData = await forecastResponse.json();
+
 
     return { current: currentWeatherData, forecast: forecastData.list };
   } catch (error) {
@@ -35,6 +36,8 @@ function displayCurrentWeather(weatherData) {
 
   currentWeatherContainer.innerHTML = `
     <h2>${name} - ${dateString} ${timeString}</h2>
+    <img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png" alt="">
+
     <p>Temperature: ${main.temp}°F</p>
     <p>Humidity: ${main.humidity}%</p>
     <p>Wind Speed: ${wind.speed} mph</p>
@@ -57,6 +60,8 @@ function displayForecast(forecastData) {
 
     card.innerHTML = `
       <h2>${dateString} ${timeString}</h2>
+      <img src="https://openweathermap.org/img/wn/${entry.weather[0].icon}@2x.png" alt="">
+
       <p>Temperature: ${entry.main.temp}°F</p>
       <p>Humidity: ${entry.main.humidity}%</p>
       <p>Wind Speed: ${entry.wind.speed} mph</p>
