@@ -1,39 +1,50 @@
+// OpenWeather Map API key and base URL
 const apiKey = '44f325ec07535190d0788a66415fe58d';
 const apiUrl = 'https://api.openweathermap.org/data/2.5';
 
+// DOM elements
 const searchForm = document.getElementById('searchForm');
 const cityInput = document.getElementById('cityInput');
 const currentWeatherContainer = document.getElementById('currentWeather');
 const forecastContainer = document.getElementById('forecast-container');
 const historyList = document.getElementById('historyList');
 
+// Array to store search history
 let searchHistory = [];
 
+// Function to fetch weather data for a city
 async function getWeatherData(city) {
   try {
+
+    // Current weather data
     const currentWeatherResponse = await fetch(`${apiUrl}/weather?q=${city}&appid=${apiKey}&units=imperial`);
     const currentWeatherData = await currentWeatherResponse.json();
 
+    // 5 day forecast data
     const forecastResponse = await fetch(`${apiUrl}/forecast?q=${city}&appid=${apiKey}&units=imperial`);
     const forecastData = await forecastResponse.json();
 
-
+    // Return object containing weather and forecast data
     return { current: currentWeatherData, forecast: forecastData.list };
   } catch (error) {
+    // Error screen
     console.error('Error fetching weather data:', error);
     return null;
   }
 }
 
+// Current weather display
 function displayCurrentWeather(weatherData) {
   currentWeatherContainer.innerHTML = '';
 
   const { name, main, weather, wind, dt } = weatherData;
 
+  // Date and time format
   const date = new Date(dt * 1000);
   const dateString = date.toLocaleDateString();
   const timeString = date.toLocaleTimeString();
 
+  // Update html with current weather
   currentWeatherContainer.innerHTML = `
     <h2>${name} - ${dateString} ${timeString}</h2>
     <img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png" alt="">
@@ -45,6 +56,7 @@ function displayCurrentWeather(weatherData) {
   `;
 }
 
+// 5 day forecast display
 function displayForecast(forecastData) {
   forecastContainer.innerHTML = '';
 
@@ -58,6 +70,7 @@ function displayForecast(forecastData) {
     const dateString = date.toLocaleDateString();
     const timeString = date.toLocaleTimeString();
 
+    // Update html forecast info
     card.innerHTML = `
       <h2>${dateString} ${timeString}</h2>
       <img src="https://openweathermap.org/img/wn/${entry.weather[0].icon}@2x.png" alt="">
