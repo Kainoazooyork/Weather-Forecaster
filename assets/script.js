@@ -85,6 +85,7 @@ function displayForecast(forecastData) {
   }
 }
 
+// Search history display
 function displaySearchHistory() {
   historyList.innerHTML = '';
   searchHistory.forEach(city => {
